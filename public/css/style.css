@@ -1,0 +1,30 @@
+html, body {
+  height: 100%;
+  padding: 0px !important;
+  margin: 0px !important; }
+
+#main {
+  background-color: #ffffff;
+  float: right;
+  padding: 10px; }
+
+#sidebar {
+  background-color: #ffffff;
+  width: 350px;
+  float: left;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  bottom: 0;
+  padding: 10px; }
+
+#split-bar {
+  background-color: #cccccc;
+  min-height: 100%;
+  width: 6px;
+  float: left;
+  cursor: col-resize;
+  margin-left: 350px; }
+
+#split-bar:hover {
+  background-color: gray; }
