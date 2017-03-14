@@ -18,18 +18,14 @@ import (
 	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"html/template"
-	"log"
 	"net/http"
 )
 
+var INDEX_TEMPLATE template.Template
+
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	tmpl, err := template.ParseFiles("templates/index.html")
-	if err != nil {
-		log.Fatal(err)
-		http.Error(w, "Failed to compile template", http.StatusBadRequest)
-	} else {
-		tmpl.Execute(w, nil)
-	}
+	tmpl := GetIndexTemplate()
+	tmpl.Execute(w, nil)
 }
 
 func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

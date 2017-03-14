@@ -14,24 +14,22 @@
 
 package main
 
-import (
-	"github.com/julienschmidt/httprouter"
-	"log"
-	"net/http"
-	"strconv"
-)
-
-func main() {
-	router := httprouter.New()
-
-	// static files
-	router.ServeFiles(FileportConfig.StaticFilesPrefix+"/*filepath", http.Dir("static"))
-
-	// add routes
-	router.GET("/", Index)
-	router.GET("/hello/:name", Hello)
-
-	// start server
-	log.Printf("Listening on http://localhost:%v", FileportConfig.Port)
-	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(FileportConfig.Port), router))
+type Config struct {
+	Port               int
+	RecompileTemplates bool
+	StaticFilesPrefix  string
 }
+
+var DebugConfig = Config{
+	3000,      // Port
+	true,      // RecompileTemplates
+	"/static", // StaticFilesPrefix
+}
+
+var ReleaseConfig = Config{
+	3000,      // Port
+	false,     // RecompileTemplates
+	"/static", // StaticFilesPrefix
+}
+
+var FileportConfig = DebugConfig
