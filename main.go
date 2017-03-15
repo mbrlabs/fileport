@@ -29,7 +29,7 @@ func main() {
 
 	// add routes
 	router.GET("/", Index)
-	router.GET("/hello/:name", Hello)
+	router.GET("/api/list/*folder", ListFiles)
 
 	// start server
 	log.Printf("Listening on http://localhost:%v", FileportConfig.Port)

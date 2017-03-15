@@ -17,7 +17,10 @@ package main
 import (
 	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"encoding/json"
 	"html/template"
+	"log"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -28,6 +31,29 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	tmpl.Execute(w, nil)
 }
 
-func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
+
+func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	// read param
+	folder := ps.ByName("folder")
+	//showHidden := r.URL.Query().Get("hidden") == "true"
+
+	// get files
+	files, err := ioutil.ReadDir(folder)
+	if err != nil {
+        http.Error(w, err.Error(), 500)
+        return
+	}
+	dtos := ConvertFiles(files)
+
+	// convert to json
+	data, err := json.Marshal(dtos)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	// send
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, "%s", data)
 }
+

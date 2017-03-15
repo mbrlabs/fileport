@@ -13,3 +13,9 @@
 // limitations under the License.
 
 package main
+
+type FileDTO struct {
+	Name 		string	`json:"name"`
+	Size 		int64	`json:"size"`
+	IsFile 		bool	`json:"file"`
+}
