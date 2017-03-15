@@ -41,15 +41,22 @@ Ui.adjustSidebar(350);
 
 // Sidebar resizing events
 // ------------------------------------------------------------------------
-$('#split-bar').mousedown(function (e) {
+$('#split-bar').mousedown(function(e) {
     e.preventDefault();
-    $(document).mousemove(function (e) {
+    $(document).mousemove(function(e) {
         e.preventDefault();
         Ui.adjustSidebar(e.pageX);
+        console.log(e.pageX);
     })
 });
+
 $(document).mouseup(function (e) {
     $(document).unbind('mousemove');
+});
+
+$(window).resize(function(e) {
+    var offset = $("#split-bar").css("margin-left").replace("px", "");
+    Ui.adjustSidebar(offset);
 });
 
 });
