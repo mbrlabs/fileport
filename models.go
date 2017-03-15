@@ -15,7 +15,7 @@
 package main
 
 type FileDTO struct {
-	Name 		string	`json:"name"`
-	Size 		int64	`json:"size"`
-	IsFile 		bool	`json:"file"`
+	Name 	string		`json:"name"`
+	Size 	int64		`json:"size"`
+	Type 	FileType 	`json:"type"`
 }
