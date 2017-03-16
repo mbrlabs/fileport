@@ -30,6 +30,8 @@ func main() {
 	// add routes
 	router.GET("/", Index)
 	router.GET("/api/list/*folder", ListFiles)
+	router.GET("/api/get/*path", SendFile)
+
 
 	// start server
 	log.Printf("Listening on http://localhost:%v", FileportConfig.Port)

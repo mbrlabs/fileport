@@ -23,6 +23,8 @@ import (
 	"log"
 	"os/user"
 	"net/http"
+	"io"
+	"os"
 )
 
 var INDEX_TEMPLATE template.Template
@@ -58,4 +60,19 @@ func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// send
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprintf(w, "%s", data)
+}
+
+func SendFile(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	// open file
+	path := ps.ByName("path")
+	file, err := os.Open(path)
+	defer file.Close()
+
+	// return if file not found
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	io.Copy(w, file)
 }
