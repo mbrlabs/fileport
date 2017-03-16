@@ -1,7 +1,9 @@
-vendor/* linguist-vendored
-static/css/font-awesome.min.css linguist-vendored
-static/css/milligram.min.css linguist-vendored
-static/css/normalize.css linguist-vendored
-static/css/style.css linguist-vendored
-static/js/jquery-3.1.1.min.js linguist-vendored
-static/js/underscore-min.js linguist-vendored
+static/css/font-awesome.min.css linguist-vendored=true
+static/css/milligram.min.css linguist-vendored=true
+static/css/normalize.css linguist-vendored=true
+static/css/style.css linguist-vendored=true
+
+static/js/jquery-3.1.1.min.js linguist-vendored=true
+static/js/underscore-min.js linguist-vendored=true
+static/js/filesize.min.js linguist-vendored=true
+
