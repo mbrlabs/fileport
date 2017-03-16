@@ -1,9 +1,9 @@
-static/css/font-awesome.min.css linguist-vendored=true
-static/css/milligram.min.css linguist-vendored=true
-static/css/normalize.css linguist-vendored=true
-static/css/style.css linguist-vendored=true
+static/css/font-awesome.min.css linguist-vendored=false
+static/css/milligram.min.css linguist-vendored=false
+static/css/normalize.css linguist-vendored=false
+static/css/style.css linguist-vendored=false
 
-static/js/jquery-3.1.1.min.js linguist-vendored=true
-static/js/underscore-min.js linguist-vendored=true
-static/js/filesize.min.js linguist-vendored=true
+static/js/jquery-3.1.1.min.js linguist-vendored=false
+static/js/underscore-min.js linguist-vendored=false
+static/js/filesize.min.js linguist-vendored=false
 
