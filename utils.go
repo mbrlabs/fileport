@@ -21,13 +21,14 @@ import (
 )
 
 type FileType int
+
 const (
-	FILE_TYPE_UNKOWN 	FileType = 0
-	FILE_TYPE_IMAGE 	FileType = 1
-	FILE_TYPE_VIDEO 	FileType = 2
-	FILE_TYPE_TEXT 		FileType = 3
-	FILE_TYPE_PDF 		FileType = 4
-	FILE_TYPE_FOLDER 	FileType = 5
+	FILE_TYPE_UNKOWN FileType = 0
+	FILE_TYPE_IMAGE  FileType = 1
+	FILE_TYPE_VIDEO  FileType = 2
+	FILE_TYPE_TEXT   FileType = 3
+	FILE_TYPE_PDF    FileType = 4
+	FILE_TYPE_FOLDER FileType = 5
 )
 
 func GetFileType(file os.FileInfo) FileType {

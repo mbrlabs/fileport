@@ -3,10 +3,19 @@ html, body {
   padding: 0px !important;
   margin: 0px !important; }
 
+header {
+  background-color: #607D8B;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 40px;
+  color: #ffffff; }
+
 #main {
   background-color: #ffffff;
   float: right;
-  padding: 10px; }
+  padding: 10px;
+  margin-top: 40px; }
 
 #sidebar {
   background-color: #ffffff;
@@ -14,13 +23,15 @@ html, body {
   float: left;
   position: fixed;
   overflow-y: auto;
-  top: 0;
+  top: 40px;
   bottom: 0;
   padding: 10px; }
 
 #split-bar {
   background-color: #cccccc;
   min-height: 100%;
+  position: fixed;
+  top: 40px;
   width: 6px;
   float: left;
   cursor: col-resize;

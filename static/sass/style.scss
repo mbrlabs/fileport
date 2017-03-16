@@ -20,8 +20,12 @@ $sidebar-bkg: #ffffff;
 $sidebar-handle-bkg: #cccccc;
 $main-bkg: #ffffff;
 
+$header-bkg: #607D8B;
+
 // dimensions
 $initial-sidebar-width: 350px;
+$header-height: 40px;
+
 
 // Basics
 // ------------------------------------------------------------------------
@@ -32,6 +36,15 @@ html, body {
     margin: 0px !important;
 }
 
+header {
+    background-color: $header-bkg;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: $header-height;
+    color: #ffffff;
+}
+
 // Sidebar
 // ------------------------------------------------------------------------
 
@@ -39,6 +52,7 @@ html, body {
     background-color: $main-bkg;
     float: right;
     padding: 10px;
+    margin-top: $header-height;
 }
 
 #sidebar {
@@ -48,7 +62,7 @@ html, body {
 
     position: fixed;
     overflow-y: auto;
-    top: 0;
+    top: $header-height;
     bottom: 0;
     padding: 10px;
 }
@@ -56,6 +70,8 @@ html, body {
 #split-bar {
     background-color: $sidebar-handle-bkg;
     min-height: 100%;
+    position: fixed;
+    top: $header-height;
     width: 6px;
     float: left;
     cursor: col-resize;

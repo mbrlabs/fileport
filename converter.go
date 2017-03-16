@@ -21,14 +21,14 @@ import (
 func ConvertFile(f os.FileInfo) FileDTO {
 	filetype := GetFileType(f)
 
-	return FileDTO {f.Name(), f.Size(), filetype}
+	return FileDTO{f.Name(), f.Size(), filetype}
 }
 
 func ConvertFiles(files []os.FileInfo) []FileDTO {
 	dtos := make([]FileDTO, len(files))
 	for i, file := range files {
 		dtos[i] = ConvertFile(file)
-	} 
+	}
 
 	return dtos
 }
