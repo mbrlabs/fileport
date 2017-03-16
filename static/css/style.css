@@ -3,6 +3,14 @@ html, body {
   padding: 0px !important;
   margin: 0px !important; }
 
+a {
+  color: #42A5F5; }
+
+table {
+  font-size: 90%; }
+  table td {
+    padding: 3px; }
+
 ::-webkit-input-placeholder {
   color: white;
   font-style: italic; }
@@ -89,7 +97,7 @@ header {
   float: right;
   margin-top: 40px; }
   #main #files {
-    margin-top: 50px;
+    margin-top: 30px;
     padding: 10px; }
   #main #search-bar {
     position: fixed;
@@ -109,3 +117,15 @@ header {
       font-size: 12px;
       height: 2.5rem;
       width: 90%; }
+
+.icon-dir {
+  color: #aaaaaa; }
+
+.icon-vid {
+  color: #B71C1C; }
+
+.icon-img {
+  color: #0288D1; }
+
+.icon-txt, .icon-pdf {
+  color: #666666; }

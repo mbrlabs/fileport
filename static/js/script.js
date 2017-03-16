@@ -23,6 +23,45 @@ var MAIN_MIN = 200;
 
 var API_ENDPOINT = "http://localhost:3000/api/";
 
+FileUtils = {
+    isImage: function(file) {
+        return file.type == 1;
+    },
+
+    isVideo: function(file) {
+        return file.type == 2;
+    },
+
+    isText: function(file) {
+        return file.type == 3;
+    },
+
+    isPDF: function(file) {
+        return file.type == 4;
+    },
+
+    isFolder: function(file) {
+        return file.type == 5;
+    },
+
+    getIcon: function(file) {
+        if(this.isImage(file)) {
+            return '<i class="icon-img fa fa-picture-o" aria-hidden="true"></i>';
+        } else if(this.isVideo(file)) {
+            return '<i class="icon-vid fa fa-video-camera" aria-hidden="true"></i>';
+        } else if(this.isText(file)) {
+            return '<i class="icon-txt fa fa-font" aria-hidden="true"></i>';
+        } else if(this.isPDF(file)) {
+            return '<i class="icon-pdf fa fa-file-pdf-o" aria-hidden="true"></i>';
+        } else if(this.isFolder(file)) {
+            return '<i class="icon-dir fa fa-folder" aria-hidden="true"></i>';
+        }
+
+        return '<i class="fa fa-file" aria-hidden="true"></i>';
+    }
+
+};
+
 // History
 // ------------------------------------------------------------------------
 History = {
@@ -81,17 +120,28 @@ var Ui = {
             History.pushPath(path);
             Ui.setCurrentPath(History.current);
 
-            var html = "";
+            var html = "<table><thead><tr><th>Type</th><th>Name</th><th>Size</th></tr></thead><tbody>";
             $.each(data, function(index, file) {
                 var currentPath = path + "/" + file.name; 
+
+                var size = filesize(file.size);
+                var type = FileUtils.getIcon(file);
+                var link = API_ENDPOINT + "get/" + path + "/" + file.name; 
+                var name = "";
                 if(file.type == 5) {
-                    html += "<div><a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a></div>";
+                    name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";
                 } else {
-                    html += "<div>" + file.name + " </div>";
+                    name += "<a href='" + link + "'>" + file.name + "</a>";
                 }
+                html += "<tr>";
+                html += "<td>" + type + "</td>";
+                html += "<td>" + name + "</td>";
+                html += "<td>" + size + "</td>";
+                html += "</tr>";
             });
+            html += "</tbody></table>";
+
             $("#files").html(html);
-            
             Ui.resetSidebar();
         }, function() {
             console.log("Failed to fetch files");
