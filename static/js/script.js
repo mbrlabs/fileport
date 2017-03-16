@@ -23,6 +23,21 @@ var MAIN_MIN = 200;
 
 var API_ENDPOINT = "http://localhost:3000/api/";
 
+// History
+// ------------------------------------------------------------------------
+History = {
+    current: HOME_DIR,
+    history: [],
+    pushPath: function(path) {
+        this.current = path;
+        History.history.push(path);
+    },
+
+    popPath: function() {
+        return history.pop();
+    },
+};
+
 // Api
 // ------------------------------------------------------------------------
 var Api = {
@@ -31,7 +46,6 @@ var Api = {
     },
 
 };
-
 
 // Ui
 // ------------------------------------------------------------------------
@@ -50,10 +64,12 @@ var Ui = {
     },
 
     setCurrentPath: function(path) {
-        var html = "/";
+        var html = '<a class="path-segment" href="#" data-path="/">/</a>' ;
+        var currentPath = "/"
         $.each(path.split("/"), function(index, value) {
             if(value.length > 0) {
-                html += '<a href="#">' + value + '</a>/'
+                currentPath += value + "/";
+                html += '<a class="path-segment" href="#" data-path="'+currentPath+'">' + value + '</a>/'
             }
         });
 
@@ -61,25 +77,27 @@ var Ui = {
     },
 
     loadPath: function(path) {
-        this.setCurrentPath(path);
-
         Api.listFiles(path, function(data) {
+            History.pushPath(path);
+            Ui.setCurrentPath(History.current);
+
             var html = "";
             $.each(data, function(index, file) {
-                html += "<div>" + file.name + " </div>";
+                var currentPath = path + "/" + file.name; 
+                if(file.type == 5) {
+                    html += "<div><a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a></div>";
+                } else {
+                    html += "<div>" + file.name + " </div>";
+                }
             });
             $("#files").html(html);
+            
             Ui.resetSidebar();
         }, function() {
             console.log("Failed to fetch files");
         });
     },
 };
-
-
-// Initial Setup
-// ------------------------------------------------------------------------
-Ui.adjustSidebar(350);
 
 // Sidebar resizing events
 // ------------------------------------------------------------------------
@@ -100,7 +118,25 @@ $(window).resize(function(e) {
     Ui.resetSidebar();
 });
 
-// load home directory
+// Header events
+// ------------------------------------------------------------------------
+$(document).on("click", ".path-segment", function(e) {
+    e.preventDefault();
+    var path = $(this).attr("data-path");
+    Ui.loadPath(path);
+});
+
+// Folder events
+// ------------------------------------------------------------------------
+$(document).on("click", ".folder-link", function(e) {
+    e.preventDefault();
+    var path = $(this).attr("data-path");
+    Ui.loadPath(path);
+});
+
+// Initial Setup
+// ------------------------------------------------------------------------
+Ui.adjustSidebar(350);
 Ui.loadPath(HOME_DIR);
 
 });
