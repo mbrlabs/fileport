@@ -20,7 +20,7 @@ $sidebar-bkg: #ffffff;
 $sidebar-handle-bkg: #cccccc;
 $main-bkg: #ffffff;
 
-$header-bkg: #607D8B;
+$header-bkg: #2196F3;
 
 // dimensions
 $initial-sidebar-width: 350px;
@@ -36,7 +36,6 @@ html, body {
     margin: 0px !important;
 }
 
-
 // Header
 // ------------------------------------------------------------------------
 
@@ -47,7 +46,44 @@ header {
     width: 100%;
     height: $header-height;
     color: #ffffff;
+    padding-left: 15px;
+
+    button {
+        i { color: white; }
+        
+        margin-top: 5px;
+        background-color: lighten($header-bkg, 10);
+        border-color: lighten($header-bkg, 10);
+        height: 2.8rem;
+        line-height: 2.8rem;
+        padding: 0 1.5rem;
+        font-size: 2rem;
+    }
+
+    button:focus {
+        background-color: lighten($header-bkg, 10) !important;
+        border-color: lighten($header-bkg, 10) !important;
+    }
+
+    button:hover {
+        background-color: lighten($header-bkg, 5) !important;
+        border-color: lighten($header-bkg, 15) !important;
+    }
+
+    a {
+        color: #cccccc;
+    }
+    a:hover {
+        color: white;
+    }
+
+    #current-path {
+        top: -3px;
+        left: 10px;
+        position: relative;
+    }
 }
+
 
 // Sidebar
 // ------------------------------------------------------------------------

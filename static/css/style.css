@@ -4,12 +4,37 @@ html, body {
   margin: 0px !important; }
 
 header {
-  background-color: #607D8B;
+  background-color: #2196F3;
   position: fixed;
   top: 0px;
   width: 100%;
   height: 40px;
-  color: #ffffff; }
+  color: #ffffff;
+  padding-left: 15px; }
+  header button {
+    margin-top: 5px;
+    background-color: #51adf6;
+    border-color: #51adf6;
+    height: 2.8rem;
+    line-height: 2.8rem;
+    padding: 0 1.5rem;
+    font-size: 2rem; }
+    header button i {
+      color: white; }
+  header button:focus {
+    background-color: #51adf6 !important;
+    border-color: #51adf6 !important; }
+  header button:hover {
+    background-color: #39a1f4 !important;
+    border-color: #6ab8f7 !important; }
+  header a {
+    color: #cccccc; }
+  header a:hover {
+    color: white; }
+  header #current-path {
+    top: -3px;
+    left: 10px;
+    position: relative; }
 
 #main {
   background-color: #ffffff;
