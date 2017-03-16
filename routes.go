@@ -21,6 +21,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"log"
+	"os/user"
 	"net/http"
 )
 
@@ -28,7 +29,10 @@ var INDEX_TEMPLATE template.Template
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	tmpl := GetIndexTemplate()
-	tmpl.Execute(w, nil)
+	currentUser, _ := user.Current()
+	home := currentUser.HomeDir
+	
+	tmpl.Execute(w, map[string]string {"home": home})
 }
 
 func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

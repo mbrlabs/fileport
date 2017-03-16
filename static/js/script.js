@@ -21,6 +21,18 @@ var SIDEBAR_MIN = 300;
 var SIDEBAR_MAX = 3600;
 var MAIN_MIN = 200;
 
+var API_ENDPOINT = "http://localhost:3000/api/";
+
+// Api
+// ------------------------------------------------------------------------
+var Api = {
+    listFiles: function(path, onSuccess, onError) {
+        $.getJSON(API_ENDPOINT + "list/" + path, onSuccess).fail(onError);
+    },
+
+};
+
+
 // Ui
 // ------------------------------------------------------------------------
 var Ui = {
@@ -31,7 +43,37 @@ var Ui = {
             $('#main').css("width", $(window).width() - x - 6);
             $("#split-bar").css("margin-left", x);
         }
-    }
+    },
+
+    resetSidebar: function() {
+        this.adjustSidebar($("#split-bar").css("margin-left").replace("px", ""));
+    },
+
+    setCurrentPath: function(path) {
+        var html = "/";
+        $.each(path.split("/"), function(index, value) {
+            if(value.length > 0) {
+                html += '<a href="#">' + value + '</a>/'
+            }
+        });
+
+        $("#current-path").html(html);
+    },
+
+    loadPath: function(path) {
+        this.setCurrentPath(path);
+
+        Api.listFiles(path, function(data) {
+            var html = "";
+            $.each(data, function(index, file) {
+                html += "<div>" + file.name + " </div>";
+            });
+            $("#files").html(html);
+            Ui.resetSidebar();
+        }, function() {
+            console.log("Failed to fetch files");
+        });
+    },
 };
 
 
@@ -55,8 +97,10 @@ $(document).mouseup(function (e) {
 });
 
 $(window).resize(function(e) {
-    var offset = $("#split-bar").css("margin-left").replace("px", "");
-    Ui.adjustSidebar(offset);
+    Ui.resetSidebar();
 });
+
+// load home directory
+Ui.loadPath(HOME_DIR);
 
 });
