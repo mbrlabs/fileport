@@ -3,6 +3,24 @@ html, body {
   padding: 0px !important;
   margin: 0px !important; }
 
+::-webkit-input-placeholder {
+  color: white;
+  font-style: italic; }
+
+:-moz-placeholder {
+  color: white;
+  opacity: 1;
+  font-style: italic; }
+
+::-moz-placeholder {
+  color: white;
+  opacity: 1;
+  font-style: italic; }
+
+:-ms-input-placeholder {
+  color: white;
+  font-style: italic; }
+
 header {
   background-color: #2196F3;
   position: fixed;
@@ -35,11 +53,12 @@ header {
     top: -3px;
     left: 10px;
     position: relative; }
+  header .path-segment {
+    color: #eeeeee; }
 
 #main {
   background-color: #ffffff;
   float: right;
-  padding: 10px;
   margin-top: 40px; }
 
 #sidebar {
@@ -64,3 +83,29 @@ header {
 
 #split-bar:hover {
   background-color: gray; }
+
+#main {
+  background-color: #ffffff;
+  float: right;
+  margin-top: 40px; }
+  #main #files {
+    margin-top: 50px;
+    padding: 10px; }
+  #main #search-bar {
+    position: fixed;
+    width: 100%;
+    background-color: #0d8aee;
+    color: white;
+    padding: 5px;
+    padding-left: 10px; }
+    #main #search-bar i {
+      float: left;
+      margin-top: 7px;
+      font-size: 90%; }
+    #main #search-bar input {
+      border: none;
+      color: white;
+      margin: 0px;
+      font-size: 12px;
+      height: 2.5rem;
+      width: 90%; }

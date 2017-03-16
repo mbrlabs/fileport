@@ -36,6 +36,27 @@ html, body {
     margin: 0px !important;
 }
 
+::-webkit-input-placeholder {
+    color: white;
+    font-style: italic;
+}
+:-moz-placeholder {
+   color: white;
+   opacity: 1;
+    font-style: italic;
+}
+
+::-moz-placeholder {
+   color: white;
+   opacity: 1;
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+   color: white;
+    font-style: italic;
+}
+
 // Header
 // ------------------------------------------------------------------------
 
@@ -82,8 +103,12 @@ header {
         left: 10px;
         position: relative;
     }
-}
 
+    .path-segment {
+        color: #eeeeee;
+    }
+
+}
 
 // Sidebar
 // ------------------------------------------------------------------------
@@ -91,7 +116,6 @@ header {
 #main {
     background-color: $main-bkg;
     float: right;
-    padding: 10px;
     margin-top: $header-height;
 }
 
@@ -121,3 +145,44 @@ header {
 #split-bar:hover {
     background-color: darken($sidebar-handle-bkg, 30%);
 }
+
+// main (search bar + files container)
+// ------------------------------------------------------------------------
+
+#main {
+    background-color: $main-bkg;
+    float: right;
+    margin-top: $header-height;
+
+    #files {
+        margin-top: 50px;
+        padding: 10px;
+    }
+
+    #search-bar {
+        position: fixed;
+        width: 100%;
+        background-color: darken($header-bkg, 5);
+        color: white;
+        padding: 5px;
+        padding-left: 10px;
+
+
+        i {
+            float: left;
+            margin-top: 7px;
+            font-size: 90%;
+        }
+
+        input {
+            border: none;
+            color: white;
+            margin: 0px;
+            font-size: 12px;
+            //background-color: red;
+            height: 2.5rem;
+            width: 90%;
+        }
+    }
+}
+

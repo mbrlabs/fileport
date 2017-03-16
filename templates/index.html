@@ -23,9 +23,7 @@
 	<button id="go-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 	<button id="go-forward"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 	<button id="goto-parent"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
-	<span id="current-path">
-		/<a href="#">home</a>/<a href="#">marcus</a>/
-	</span>
+	<span id="current-path"></span>
 </header>
 
 <!-- sidebar -->
@@ -38,7 +36,13 @@
 
 <!-- main -->
 <div id="main">
-	<h3><i class="fa fa-file" aria-hidden="true"></i> Main</h3>
+	<div id="search-bar">
+		<div>
+			<i class="fa fa-search" aria-hidden="true"></i>
+			<input type="text" placeholder="Search" id="search-input">
+		</div>
+	</div>
+	<!--<h3><i class="fa fa-file" aria-hidden="true"></i> Main</h3>-->
 	<div id="files"></div>
 </div> 
 <!-- /main -->
