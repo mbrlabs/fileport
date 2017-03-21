@@ -23,6 +23,15 @@ var MAIN_MIN = 200;
 
 var API_ENDPOINT = "http://" + IP + ":3000/api/";
 
+// FileSystem
+// ------------------------------------------------------------------------
+Fs = {
+    files: [],
+};
+
+
+// FileUtils
+// ------------------------------------------------------------------------
 FileUtils = {
     isImage: function(file) {
         return file.type == 1;
@@ -87,7 +96,10 @@ History = {
 // ------------------------------------------------------------------------
 var Api = {
     listFiles: function(path, onSuccess, onError) {
-        $.getJSON(API_ENDPOINT + "list/" + path, onSuccess).fail(onError);
+        $.getJSON(API_ENDPOINT + "list/" + path, function(data) {
+            Fs.files = data;
+            onSuccess(Fs.files);
+        }).fail(onError);
     },
 
 };
@@ -139,8 +151,10 @@ var Ui = {
                 var name = "";
                 if(FileUtils.isFolder(file)) {
                     name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";
+                } else if(FileUtils.isImage(file)) {
+                    name += "<a data-fancybox='gallery' href='"+link+"' >" + file.name + "</a>";
                 } else {
-                    name += "<a href='" + link + "'>" + file.name + "</a>";
+                    name += "<a target='_blank' href='" + link + "'>" + file.name + "</a>";
                 }
                 html += "<tr>";
                 html += "<td>" + type + name + "</td>";
