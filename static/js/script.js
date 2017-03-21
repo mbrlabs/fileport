@@ -32,16 +32,20 @@ FileUtils = {
         return file.type == 2;
     },
 
-    isText: function(file) {
+    isAudio: function(file) {
         return file.type == 3;
     },
 
-    isPDF: function(file) {
+    isText: function(file) {
         return file.type == 4;
     },
 
-    isFolder: function(file) {
+    isPDF: function(file) {
         return file.type == 5;
+    },
+
+    isFolder: function(file) {
+        return file.type == 6;
     },
 
     getIcon: function(file) {
@@ -49,6 +53,8 @@ FileUtils = {
             return '<i class="icon-img fa fa-picture-o" aria-hidden="true"></i>';
         } else if(this.isVideo(file)) {
             return '<i class="icon-vid fa fa-video-camera" aria-hidden="true"></i>';
+        } else if(this.isAudio(file)) {
+            return '<i class="icon-audio fa fa-music" aria-hidden="true"></i>';
         } else if(this.isText(file)) {
             return '<i class="icon-txt fa fa-font" aria-hidden="true"></i>';
         } else if(this.isPDF(file)) {
@@ -131,7 +137,7 @@ var Ui = {
 
                 var link = encodeURI(API_ENDPOINT + "get/" + path + "/" + escapedName); 
                 var name = "";
-                if(file.type == 5) {
+                if(FileUtils.isFolder(file)) {
                     name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";
                 } else {
                     name += "<a href='" + link + "'>" + file.name + "</a>";

@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"html/template"
-	"io/ioutil"
 	"log"
 	"os/user"
 	"net/http"
@@ -43,9 +42,9 @@ func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	//showHidden := r.URL.Query().Get("hidden") == "true"
 
 	// get files
-	files, err := ioutil.ReadDir(folder)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
+	files := GetFiles(folder, false)
+	if len(files) == 0 {
+		http.Error(w, "", 500)
 		return
 	}
 	dtos := ConvertFiles(files)
