@@ -13,30 +13,38 @@
     <link rel="stylesheet" href="static/css/fonts.css" />
     <link rel="stylesheet" href="static/css/milligram.min.css" />
     <link rel="stylesheet" href="static/css/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="static/css/plyr.css" />
     <link rel="stylesheet" href="static/css/style.css" />
 
     <script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/underscore-min.js"></script>
     <script type="text/javascript" src="static/js/filesize.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="static/js/plyr.js"></script>
     <script type="text/javascript" src="static/js/script.js"></script>
 </head>
 <body>
 
+<!-- video player -->
+<div style="display: none;" id="video-player-modal">
+	<video id="video-player" controls>
+		<source id="video-source" src="" type="video/mp4">
+	</video>
+</div> <!-- /video player -->
+
+<!-- header -->
 <header>
 	<button id="go-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 	<button id="go-forward"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 	<button id="goto-parent"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
 	<span id="current-path"></span>
-</header>
+</header> <!-- /header -->
 
 <!-- sidebar -->
 <div id="sidebar"> 
 	<h3><i class="fa fa-file" aria-hidden="true"></i> Sidebar</h3>
-
 </div>
-<div id="split-bar"></div>
-<!-- /sidebar -->
+<div id="split-bar"></div> <!-- /sidebar -->
 
 <!-- main -->
 <div id="main">
@@ -47,14 +55,7 @@
 		</div>
 	</div>
 	<div id="files"></div>
-</div> 
-<!-- /main -->
-
-<!-- footer -->
-<footer>
-	
-</footer>
-<!-- /footer -->
+</div> <!-- /main -->
 
 </body>
 </html>

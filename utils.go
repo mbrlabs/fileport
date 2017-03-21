@@ -43,7 +43,7 @@ func GetFileType(file os.FileInfo) FileType {
 		e := strings.ToLower(filepath.Ext(file.Name()))
 		if e == ".png" || e == ".jpg" || e == ".jpeg" || e == ".gif" {
 			filetype = FILE_TYPE_IMAGE
-		} else if e == ".mp4" || e == ".avi" || e == ".webm" || e == ".mkv" || e == ".flv" {
+		} else if e == ".mp4" || e == ".avi" || e == ".webm" || e == ".mkv" || e == ".flv" || e == ".mov" || e == ".wmv" {
 			filetype = FILE_TYPE_VIDEO
 		} else if e == ".mp3" || e == ".wav" || e == ".flac" {
 			filetype = FILE_TYPE_AUDIO

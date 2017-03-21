@@ -73,8 +73,7 @@ FileUtils = {
         }
 
         return '<i class="fa fa-file" aria-hidden="true"></i>';
-    }
-
+    },
 };
 
 // History
@@ -107,6 +106,7 @@ var Api = {
 // Ui
 // ------------------------------------------------------------------------
 var Ui = {
+    videoPlayer: plyr.setup('#video-player')[0],
     adjustSidebar: function(width) {
         var x = width - $('#sidebar').offset().left;
         if (x > SIDEBAR_MIN && x < SIDEBAR_MAX && width < ($(window).width() - MAIN_MIN)) {  
@@ -153,6 +153,8 @@ var Ui = {
                     name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";
                 } else if(FileUtils.isImage(file)) {
                     name += "<a data-fancybox='gallery' href='"+link+"' >" + file.name + "</a>";
+                } else if(FileUtils.isVideo(file)) {
+                    name += "<a href='#' class='video-link' data-path='"+currentPath+"'>" + file.name + "</a>";
                 } else {
                     name += "<a target='_blank' href='" + link + "'>" + file.name + "</a>";
                 }
@@ -167,6 +169,21 @@ var Ui = {
             Ui.resetSidebar();
         }, function() {
             console.log("Failed to fetch files");
+        });
+    },
+
+    showVideo: function(url) {
+       // Ui.videoPlayer.stop();
+        Ui.videoPlayer.source({
+          type:       'video',
+          sources: [{src: url}]});
+        $.fancybox.open({
+            src  : '#video-player-modal',
+            type : 'inline',
+            focus : false,
+            opts : {
+                closeBtn: false,
+            }
         });
     },
 };
@@ -199,12 +216,21 @@ $(document).on("click", ".path-segment", function(e) {
     Ui.loadPath(path);
 });
 
-// Folder events
+// File events
 // ------------------------------------------------------------------------
 $(document).on("click", ".folder-link", function(e) {
     e.preventDefault();
     var path = $(this).attr("data-path");
     Ui.loadPath(path);
+});
+
+$(document).on("click", ".video-link", function(e) {
+    e.preventDefault();
+    var path = $(this).attr("data-path");
+    var escapedPath = path.replace("\"", "&#34;");
+    escapedPath = escapedPath.replace("'", "&#39;");
+    var url = encodeURI(API_ENDPOINT + "get/" + escapedPath); 
+    Ui.showVideo(url);
 });
 
 // Initial Setup

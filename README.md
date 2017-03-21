@@ -20,6 +20,7 @@ go run *.go
 - Password protection
 - Basic read-only file access
 - Image gallery
+- Video player
 
 Currently works only on Linux (Windows & Mac comming soon).
 

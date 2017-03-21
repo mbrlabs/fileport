@@ -69,6 +69,26 @@ table {
     font-style: italic;
 }
 
+.fancybox-close-small {
+    margin-left: 20px !important; 
+    display: none !important;
+}
+
+.fancybox-close-small:focus {
+    background-color: transparent !important;
+}
+.fancybox-close-small:hover {
+    background-color: transparent !important;
+}
+
+.fancybox-close-small:active {
+    background-color: transparent !important;
+}
+
+#video-player {
+    padding: 0px !important;
+}
+
 // Header
 // ------------------------------------------------------------------------
 
