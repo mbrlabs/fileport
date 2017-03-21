@@ -21,7 +21,7 @@ var SIDEBAR_MIN = 300;
 var SIDEBAR_MAX = 3600;
 var MAIN_MIN = 200;
 
-var API_ENDPOINT = "http://localhost:3000/api/";
+var API_ENDPOINT = "http://" + IP + ":3000/api/";
 
 FileUtils = {
     isImage: function(file) {
@@ -126,7 +126,10 @@ var Ui = {
 
                 var size = filesize(file.size);
                 var type = FileUtils.getIcon(file) + "&nbsp;&nbsp;&nbsp;&nbsp;";
-                var link = API_ENDPOINT + "get/" + path + "/" + file.name; 
+                var escapedName = file.name.replace("\"", "&#34;");
+                escapedName = escapedName.replace("'", "&#39;");
+
+                var link = encodeURI(API_ENDPOINT + "get/" + path + "/" + escapedName); 
                 var name = "";
                 if(file.type == 5) {
                     name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";

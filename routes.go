@@ -32,8 +32,9 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	tmpl := GetIndexTemplate()
 	currentUser, _ := user.Current()
 	home := currentUser.HomeDir
+	ip := GetLocalIP()
 	
-	tmpl.Execute(w, map[string]string {"home": home})
+	tmpl.Execute(w, map[string]string {"home": home, "ip": ip})
 }
 
 func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -56,7 +57,9 @@ func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 
+
 	// send
+	Cors(w, r, ps)
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprintf(w, "%s", data)
 }
