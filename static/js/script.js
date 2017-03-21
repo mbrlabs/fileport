@@ -120,12 +120,12 @@ var Ui = {
             History.pushPath(path);
             Ui.setCurrentPath(History.current);
 
-            var html = "<table><thead><tr><th>Type</th><th>Name</th><th>Size</th></tr></thead><tbody>";
+            var html = "<table><thead><tr><th>Name</th><th>Size</th></tr></thead><tbody>";
             $.each(data, function(index, file) {
                 var currentPath = path + "/" + file.name; 
 
                 var size = filesize(file.size);
-                var type = FileUtils.getIcon(file);
+                var type = FileUtils.getIcon(file) + "&nbsp;&nbsp;&nbsp;&nbsp;";
                 var link = API_ENDPOINT + "get/" + path + "/" + file.name; 
                 var name = "";
                 if(file.type == 5) {
@@ -134,8 +134,7 @@ var Ui = {
                     name += "<a href='" + link + "'>" + file.name + "</a>";
                 }
                 html += "<tr>";
-                html += "<td>" + type + "</td>";
-                html += "<td>" + name + "</td>";
+                html += "<td>" + type + name + "</td>";
                 html += "<td>" + size + "</td>";
                 html += "</tr>";
             });
@@ -148,6 +147,7 @@ var Ui = {
         });
     },
 };
+
 
 // Sidebar resizing events
 // ------------------------------------------------------------------------

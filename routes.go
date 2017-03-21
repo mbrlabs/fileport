@@ -23,7 +23,6 @@ import (
 	"log"
 	"os/user"
 	"net/http"
-	"io"
 	"os"
 )
 
@@ -74,5 +73,6 @@ func SendFile(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 
-	io.Copy(w, file)
+	http.ServeFile(w, r, path)
+	//http.ServeContent(w, r, file.Name(), time.Now(), file)
 }
