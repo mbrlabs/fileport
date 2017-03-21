@@ -17,6 +17,7 @@ package main
 import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
+	"log"
 )
 
 func Security(h httprouter.Handle) httprouter.Handle {
@@ -24,7 +25,8 @@ func Security(h httprouter.Handle) httprouter.Handle {
 		if IsAuthenticated(r) {
 			h(w, r, ps)
 		} else {
-			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+			log.Printf("Unauthorized access: %v", r.URL)
+			http.Redirect(w, r, "/", 302)
 		}
 	}
 }

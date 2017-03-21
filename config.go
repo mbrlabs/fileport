@@ -19,6 +19,7 @@ type Config struct {
 	RecompileTemplates bool
 	StaticFilesPrefix  string
 	NoAuth             bool
+	Password           string
 }
 
 var DebugConfig = Config{
@@ -26,6 +27,7 @@ var DebugConfig = Config{
 	true,      // RecompileTemplates
 	"/static", // StaticFilesPrefix
 	false,
+	"Test123",
 }
 
 var ReleaseConfig = Config{
@@ -33,6 +35,7 @@ var ReleaseConfig = Config{
 	false,     // RecompileTemplates
 	"/static", // StaticFilesPrefix
 	false,
+	"Test123",
 }
 
 var FileportConfig = DebugConfig

@@ -52,7 +52,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	code := r.PostFormValue("code")
 
-	if code == "Test123" {
+	if code == FileportConfig.Password {
 		// generate session id & set cookie
 		sessionID := RandomString(64, AlphaNumeric)
 		expiration := time.Now().Add(365 * 24 * time.Hour)
@@ -61,7 +61,10 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 		// update session store
 		SetLogin(sessionID)
-	} 
+		log.Println("Login successful")
+	} else {
+		log.Println("Login failed")
+	}
 
 	http.Redirect(w, r, "/", 302)
 }

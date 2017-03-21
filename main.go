@@ -19,6 +19,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"fmt"
 )
 
 func main() {
@@ -38,7 +39,14 @@ func main() {
 
 	url := "http://" + GetLocalIP() + ":" + strconv.Itoa(FileportConfig.Port)
 
+	// print info
+	fmt.Printf("************************************************************\n")
+	fmt.Printf("* Fileport\n*\n")
+	fmt.Printf("* Url: %v\n", url)
+	fmt.Printf("* Password: %v\n", FileportConfig.Password)
+	fmt.Printf("************************************************************\n")
+	fmt.Println()
+
 	// start server
-	log.Printf("Listening on %v", url)
 	log.Fatal(http.ListenAndServe(":" + strconv.Itoa(FileportConfig.Port), router))
 }
