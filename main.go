@@ -29,11 +29,16 @@ func main() {
 
 	// add routes
 	router.GET("/", Index)
-	router.GET("/api/list/*folder", ListFiles)
-	router.GET("/api/get/*path", SendFile)
+	router.POST("/login", Login)
+	router.GET("/logout", Logout)
+	router.GET("/error", Error)
 
+	router.GET("/api/list/*folder", Security(Cors(ListFiles)))
+	router.GET("/api/get/*path", Security(Cors(SendFile)))
+
+	url := "http://" + GetLocalIP() + ":" + strconv.Itoa(FileportConfig.Port)
 
 	// start server
-	log.Printf("Listening on http://localhost:%v", FileportConfig.Port)
-	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(FileportConfig.Port), router))
+	log.Printf("Listening on %v", url)
+	log.Fatal(http.ListenAndServe(":" + strconv.Itoa(FileportConfig.Port), router))
 }

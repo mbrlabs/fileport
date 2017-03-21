@@ -23,17 +23,55 @@ import (
 	"os/user"
 	"net/http"
 	"os"
+	"time"
 )
 
 var INDEX_TEMPLATE template.Template
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	tmpl := GetIndexTemplate()
-	currentUser, _ := user.Current()
-	home := currentUser.HomeDir
-	ip := GetLocalIP()
+	if IsAuthenticated(r) {
+		tmpl := GetIndexTemplate()
+		currentUser, _ := user.Current()
+		home := currentUser.HomeDir
+		ip := GetLocalIP()
+		tmpl.Execute(w, map[string]string {"home": home, "ip": ip})
+	} else {
+		tmpl := GetLoginTemplate()
+		ip := GetLocalIP()
+		tmpl.Execute(w, map[string]string {"ip": ip})
+	}
+}
+
+func Error(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	tmpl := GetErrorTemplate()
 	
-	tmpl.Execute(w, map[string]string {"home": home, "ip": ip})
+	tmpl.Execute(w, map[string]string {})
+}
+
+func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	r.ParseForm()
+	code := r.PostFormValue("code")
+
+	if code == "Test123" {
+		// generate session id & set cookie
+		sessionID := RandomString(64, AlphaNumeric)
+		expiration := time.Now().Add(365 * 24 * time.Hour)
+		cookie := http.Cookie{Name: "session", Value: sessionID, Expires: expiration, HttpOnly: false}
+		http.SetCookie(w, &cookie)
+
+		// update session store
+		SetLogin(sessionID)
+	} 
+
+	http.Redirect(w, r, "/", 302)
+}
+
+func Logout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	sid, err := r.Cookie("session")
+	if err == nil && sid != nil  {
+		SetLogout(sid.Value)
+	}
+	http.Redirect(w, r, "/", 302)
 }
 
 func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -56,9 +94,7 @@ func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 
-
 	// send
-	Cors(w, r, ps)
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprintf(w, "%s", data)
 }

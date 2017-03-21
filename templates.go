@@ -17,6 +17,8 @@ package main
 import "html/template"
 
 var indexTemplate *template.Template = nil
+var loginTemplate *template.Template = nil
+var errorTemplate *template.Template = nil
 
 func GetIndexTemplate() *template.Template {
 	if FileportConfig.RecompileTemplates || indexTemplate == nil {
@@ -24,4 +26,20 @@ func GetIndexTemplate() *template.Template {
 	}
 
 	return indexTemplate
+}
+
+func GetLoginTemplate() *template.Template {
+	if FileportConfig.RecompileTemplates || indexTemplate == nil {
+		loginTemplate, _ = template.ParseFiles("templates/login.html")
+	}
+
+	return loginTemplate
+}
+
+func GetErrorTemplate() *template.Template {
+	if FileportConfig.RecompileTemplates || indexTemplate == nil {
+		errorTemplate, _ = template.ParseFiles("templates/error.html")
+	}
+
+	return errorTemplate
 }

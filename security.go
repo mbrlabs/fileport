@@ -14,25 +14,28 @@
 
 package main
 
-type Config struct {
-	Port               int
-	RecompileTemplates bool
-	StaticFilesPrefix  string
-	NoAuth             bool
+import "net/http"
+
+var sessions map[string]bool = make(map[string]bool)
+
+func IsAuthenticated(r *http.Request) bool {
+	if FileportConfig.NoAuth {
+		return true
+	}
+
+	sid, err := r.Cookie("session")
+	if err == nil && sid != nil {
+		_, ok := sessions[sid.Value]
+		return ok
+	}
+
+	return false
 }
 
-var DebugConfig = Config{
-	3000,      // Port
-	true,      // RecompileTemplates
-	"/static", // StaticFilesPrefix
-	false,
+func SetLogin(sessionID string) {
+	sessions[sessionID] = true
 }
 
-var ReleaseConfig = Config{
-	3000,      // Port
-	false,     // RecompileTemplates
-	"/static", // StaticFilesPrefix
-	false,
+func SetLogout(sessionID string) {
+	delete(sessions, sessionID)
 }
-
-var FileportConfig = DebugConfig

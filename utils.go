@@ -15,11 +15,12 @@
 package main
 
 import (
+	"crypto/rand"
+	"io/ioutil"
+	"net"
 	"os"
 	"path/filepath"
 	"strings"
-	"net"
-	"io/ioutil"
 )
 
 type FileType int
@@ -58,21 +59,20 @@ func GetFileType(file os.FileInfo) FileType {
 
 // GetLocalIP returns the non loopback local IP of the host
 func GetLocalIP() string {
-    addrs, err := net.InterfaceAddrs()
-    if err != nil {
-        return ""
-    }
-    for _, address := range addrs {
-        // check the address type and if it is not a loopback the display it
-        if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-            if ipnet.IP.To4() != nil {
-                return ipnet.IP.String()
-            }
-        }
-    }
-    return ""
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return ""
+	}
+	for _, address := range addrs {
+		// check the address type and if it is not a loopback the display it
+		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				return ipnet.IP.String()
+			}
+		}
+	}
+	return ""
 }
-
 
 func GetFiles(path string, showHidden bool) []os.FileInfo {
 	files, err := ioutil.ReadDir(path)
@@ -80,7 +80,7 @@ func GetFiles(path string, showHidden bool) []os.FileInfo {
 		return make([]os.FileInfo, 0)
 	}
 
-	if(showHidden) {
+	if showHidden {
 		return files
 	}
 
@@ -91,4 +91,33 @@ func GetFiles(path string, showHidden bool) []os.FileInfo {
 		}
 	}
 	return filtered
+}
+
+const (
+	// AlphaLowerCase alphabet a-z
+	AlphaLowerCase = "abcdefghijklmnopqrstuvwxyz"
+	// AlphaUpperCase alphabet A-Z
+	AlphaUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	// Numeric alphabet 0-9
+	Numeric = "0123456789"
+	// Alpha alphabet a-zA-Z
+	Alpha = AlphaLowerCase + AlphaUpperCase
+	// AlphaNumeric alphabet a-zA-Z0-9
+	AlphaNumeric = Alpha + Numeric
+)
+
+// RandomString generates a random string
+func RandomString(length int, alphabet string) string {
+	alphabetLen := byte(len(alphabet))
+
+	// make generate random byte array
+	id := make([]byte, length)
+	rand.Read(id)
+
+	// replace rand num with char from alphabet
+	for i, b := range id {
+		id[i] = alphabet[b%alphabetLen]
+	}
+
+	return string(id)
 }

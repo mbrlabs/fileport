@@ -19,6 +19,19 @@ import (
 	"net/http"
 )
 
-func Cors(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+func Security(h httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		if IsAuthenticated(r) {
+			h(w, r, ps)
+		} else {
+			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		}
+	}
+}
+
+func Cors(h httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		h(w, r, ps)
+	}
 }

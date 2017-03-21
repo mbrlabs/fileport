@@ -1,0 +1,64 @@
+* {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+*:before, *:after {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body {
+	background: #2196F3;
+}
+
+input {
+	border: none;
+	font-family: 'Open Sans';
+	font-size: 14px;
+	line-height: 1.5em;
+}
+
+.login-container {
+	position:absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+#login {
+	width: 280px;
+}
+
+#login form span {
+	background-color: white;
+	color: #606468;
+	display: block;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	width: 50px;
+}
+
+input {
+	height: 50px;
+	background-color: white;
+	border-radius: 0px 3px 3px 0px;
+	color: #606468;
+	padding: 0 16px;
+	width: 230px;
+}
+
+input[type="submit"] {
+	background-color: #363b41;
+	color: #606468;
+	font-weight: bold;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	width: 280px;
+	color: white;
+	text-transform: uppercase;
+}
