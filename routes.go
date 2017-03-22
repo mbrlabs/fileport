@@ -42,12 +42,6 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 }
 
-func Error(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	tmpl := GetErrorTemplate()
-	
-	tmpl.Execute(w, map[string]string {})
-}
-
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	code := r.PostFormValue("code")
@@ -116,4 +110,17 @@ func SendFile(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	http.ServeFile(w, r, path)
 	//http.ServeContent(w, r, file.Name(), time.Now(), file)
+}
+
+func GenericError(w http.ResponseWriter, r *http.Request, args map[string]string) {
+	tmpl := GetErrorTemplate()
+	tmpl.Execute(w, args)
+}
+
+func NotFoundErrorPage(w http.ResponseWriter, r *http.Request) {
+	GenericError(w, r, map[string]string {"title": "404", "msg": "Not found"})
+}
+
+func MethodNotAllowedErrorPage(w http.ResponseWriter, r *http.Request) {
+	GenericError(w, r, map[string]string {"title": "405", "msg": "Method not allowed"})
 }

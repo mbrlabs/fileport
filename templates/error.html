@@ -3,36 +3,29 @@
 <head>
     <title>Fileport - Error</title>
 
-    <script type="text/javascript">
-        var HOME_DIR = "{{.home}}";
-        var IP = "{{.ip}}";
-    </script>
-
     <link rel="stylesheet" href="static/css/normalize.css" />
     <link rel="stylesheet" href="static/css/font-awesome.min.css" />
     <link rel="stylesheet" href="static/css/fonts.css" />
-    <link rel="stylesheet" href="static/css/milligram.min.css" />
-    <link rel="stylesheet" href="static/css/jquery.fancybox.min.css" />
-    <link rel="stylesheet" href="static/css/plyr.css" />
-    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/css/error.css" />
 
     <script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="static/js/underscore-min.js"></script>
-    <script type="text/javascript" src="static/js/filesize.min.js"></script>
-    <script type="text/javascript" src="static/js/jquery.fancybox.min.js"></script>
-    <script type="text/javascript" src="static/js/plyr.js"></script>
-    <script type="text/javascript" src="static/js/script.js"></script>
-    
-    <script type="text/javascript">
-        $(function() {
-            $("#show-video").click(function() {
-                Ui.showVideo("/api/get/home/marcus/Desktop/oceans.mp4");
-            });
-        });
-    </script>
-
 </head>
 <body>
+
+<div id="back">
+    <a href="/"><i class="fa fa-times" aria-hidden="true"></i></a>
+</div>
+
+<div class="center">
+    <div id="error-title">
+        {{.title}}
+    </div>
+
+    <div id="error-msg">
+        {{.msg}}
+    </div>
+</div>
+
 
 </body>
 </html>

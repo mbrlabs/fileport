@@ -28,18 +28,19 @@ func main() {
 	// static files
 	router.ServeFiles(FileportConfig.StaticFilesPrefix+"/*filepath", http.Dir("static"))
 
+	// error pages
+	router.NotFound = http.HandlerFunc(NotFoundErrorPage)
+	router.MethodNotAllowed = http.HandlerFunc(MethodNotAllowedErrorPage)
+
 	// add routes
 	router.GET("/", Index)
 	router.POST("/login", Login)
 	router.GET("/logout", Logout)
-	router.GET("/error", Error)
-
 	router.GET("/api/list/*folder", Security(Cors(ListFiles)))
 	router.GET("/api/get/*path", Security(Cors(SendFile)))
 
-	url := "http://" + GetLocalIP() + ":" + strconv.Itoa(FileportConfig.Port)
-
 	// print info
+	url := "http://" + GetLocalIP() + ":" + strconv.Itoa(FileportConfig.Port)
 	fmt.Printf("************************************************************\n")
 	fmt.Printf("* Fileport\n*\n")
 	fmt.Printf("* Url: %v\n", url)

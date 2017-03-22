@@ -1,0 +1,32 @@
+body {
+	background: #2196F3;
+}
+
+.center {
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%,50%);
+    position: absolute;
+    text-align: center;
+}
+
+#back {
+	font-size: 2rem;
+	float: right;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+
+a, a:active, a:hover, a:focus {
+	color: white;
+}
+
+#error-msg {
+	font-size: 2rem;
+	color: #dddddd;
+}
+
+#error-title {
+	font-size: 10rem;
+	color: white;
+}
