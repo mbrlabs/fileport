@@ -21,13 +21,13 @@ go run *.go
 - Basic read-only file access
 - Image gallery
 - Video player
+- Fuzzy file search
 
 Currently works only on Linux (Windows & Mac comming soon).
 
 ## TODO
 - Well defined API for use in third party apps
 - File sorting
-- Fuzzy search
 - SSH
 - Mobile frontend
 - File tree

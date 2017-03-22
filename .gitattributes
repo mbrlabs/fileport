@@ -10,3 +10,4 @@ static/js/underscore-min.js linguist-vendored=true
 static/js/filesize.min.js linguist-vendored=true
 static/js/jquery.fancybox.min.js linguist-vendored=true
 static/js/static/js/plyr.js linguist-vendored=true
+static/js/static/js/fuse.min.js linguist-vendored=true

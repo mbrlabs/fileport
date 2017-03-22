@@ -133,40 +133,43 @@ var Ui = {
         $("#current-path").html(html);
     },
 
+    setFiles: function(files) {
+        var html = "<table><thead><tr><th>Name</th><th>Size</th></tr></thead><tbody>";
+        $.each(files, function(index, file) {
+            var currentPath = History.current + "/" + file.name; 
+
+            var size = filesize(file.size);
+            var type = FileUtils.getIcon(file) + "&nbsp;&nbsp;&nbsp;&nbsp;";
+            var escapedName = file.name.replace("\"", "&#34;");
+            escapedName = escapedName.replace("'", "&#39;");
+
+            var link = encodeURI(API_ENDPOINT + "get/" + History.current + "/" + escapedName); 
+            var name = "";
+            if(FileUtils.isFolder(file)) {
+                name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";
+            } else if(FileUtils.isImage(file)) {
+                name += "<a data-fancybox='gallery' href='"+link+"' >" + file.name + "</a>";
+            } else if(FileUtils.isVideo(file)) {
+                name += "<a href='#' class='video-link' data-path='"+currentPath+"'>" + file.name + "</a>";
+            } else {
+                name += "<a target='_blank' href='" + link + "'>" + file.name + "</a>";
+            }
+            html += "<tr>";
+            html += "<td>" + type + name + "</td>";
+            html += "<td>" + size + "</td>";
+            html += "</tr>";
+        });
+        html += "</tbody></table>";
+
+        $("#files").html(html);
+        Ui.resetSidebar();
+    },
+
     loadPath: function(path) {
         Api.listFiles(path, function(data) {
             History.pushPath(path);
             Ui.setCurrentPath(History.current);
-
-            var html = "<table><thead><tr><th>Name</th><th>Size</th></tr></thead><tbody>";
-            $.each(data, function(index, file) {
-                var currentPath = path + "/" + file.name; 
-
-                var size = filesize(file.size);
-                var type = FileUtils.getIcon(file) + "&nbsp;&nbsp;&nbsp;&nbsp;";
-                var escapedName = file.name.replace("\"", "&#34;");
-                escapedName = escapedName.replace("'", "&#39;");
-
-                var link = encodeURI(API_ENDPOINT + "get/" + path + "/" + escapedName); 
-                var name = "";
-                if(FileUtils.isFolder(file)) {
-                    name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";
-                } else if(FileUtils.isImage(file)) {
-                    name += "<a data-fancybox='gallery' href='"+link+"' >" + file.name + "</a>";
-                } else if(FileUtils.isVideo(file)) {
-                    name += "<a href='#' class='video-link' data-path='"+currentPath+"'>" + file.name + "</a>";
-                } else {
-                    name += "<a target='_blank' href='" + link + "'>" + file.name + "</a>";
-                }
-                html += "<tr>";
-                html += "<td>" + type + name + "</td>";
-                html += "<td>" + size + "</td>";
-                html += "</tr>";
-            });
-            html += "</tbody></table>";
-
-            $("#files").html(html);
-            Ui.resetSidebar();
+            Ui.setFiles(data);
         }, function() {
             console.log("Failed to fetch files");
         });
@@ -214,6 +217,26 @@ $(document).on("click", ".path-segment", function(e) {
     e.preventDefault();
     var path = $(this).attr("data-path");
     Ui.loadPath(path);
+});
+
+$("#search-input").keyup(function() {
+    var term = $(this).val(); 
+
+    if(term.length >= 2) {
+        var options = {
+            shouldSort: true,
+            threshold: 0.6,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: ["name"]
+        };
+        var fuse = new Fuse(Fs.files, options);
+        Ui.setFiles(fuse.search(term));
+    } else {
+        Ui.setFiles(Fs.files);
+    }
 });
 
 // File events
