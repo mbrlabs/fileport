@@ -14,6 +14,7 @@
 
 package main
 
+// FileDTO describes a file
 type FileDTO struct {
 	Name string   `json:"name"`
 	Size int64    `json:"size"`

@@ -15,27 +15,47 @@
 package main
 
 import "net/http"
+import "sync"
 
-var sessions = make(map[string]bool)
+var (
+	smInstance *securityManager
+	once       sync.Once
+)
 
-func IsAuthenticated(r *http.Request) bool {
+// SecurityManager handles security
+type securityManager struct {
+	sessions map[string]bool
+}
+
+// SecurityManager returns the securityManager singleton
+func SecurityManager() *securityManager {
+	if smInstance == nil {
+		once.Do(func() {
+			smInstance = &securityManager{sessions: make(map[string]bool)}
+		})
+	}
+
+	return smInstance
+}
+
+func (sm *securityManager) IsAuthenticated(r *http.Request) bool {
 	if FileportConfig.NoAuth {
 		return true
 	}
 
 	sid, err := r.Cookie("session")
 	if err == nil && sid != nil {
-		_, ok := sessions[sid.Value]
+		_, ok := sm.sessions[sid.Value]
 		return ok
 	}
 
 	return false
 }
 
-func SetLogin(sessionID string) {
-	sessions[sessionID] = true
+func (sm *securityManager) Login(sessionID string) {
+	sm.sessions[sessionID] = true
 }
 
-func SetLogout(sessionID string) {
-	delete(sessions, sessionID)
+func (sm *securityManager) Logout(sessionID string) {
+	delete(sm.sessions, sessionID)
 }

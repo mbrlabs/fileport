@@ -15,14 +15,16 @@
 package main
 
 import (
-	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
-func Security(h httprouter.Handle) httprouter.Handle {
+// UseSecurity is a security middleware
+func UseSecurity(h httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-		if IsAuthenticated(r) {
+		if SecurityManager().IsAuthenticated(r) {
 			h(w, r, ps)
 		} else {
 			log.Printf("Unauthorized access: %v", r.URL)
@@ -31,7 +33,8 @@ func Security(h httprouter.Handle) httprouter.Handle {
 	}
 }
 
-func Cors(h httprouter.Handle) httprouter.Handle {
+// UseCors is a CORS middleware
+func UseCors(h httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		h(w, r, ps)

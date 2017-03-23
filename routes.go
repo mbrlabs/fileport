@@ -26,8 +26,8 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	if IsAuthenticated(r) {
+func IndexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if SecurityManager().IsAuthenticated(r) {
 		tmpl := GetIndexTemplate()
 		currentUser, _ := user.Current()
 		home := currentUser.HomeDir
@@ -40,7 +40,7 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 }
 
-func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func LoginHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	code := r.PostFormValue("code")
 
@@ -52,7 +52,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		http.SetCookie(w, &cookie)
 
 		// update session store
-		SetLogin(sessionID)
+		SecurityManager().Login(sessionID)
 		log.Println("Login successful")
 	} else {
 		log.Println("Login failed")
@@ -61,15 +61,15 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	http.Redirect(w, r, "/", 302)
 }
 
-func Logout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func LogoutHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	sid, err := r.Cookie("session")
 	if err == nil && sid != nil {
-		SetLogout(sid.Value)
+		SecurityManager().Logout(sid.Value)
 	}
 	http.Redirect(w, r, "/", 302)
 }
 
-func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func ListFilesHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// read param
 	folder := ps.ByName("folder")
 	//showHidden := r.URL.Query().Get("hidden") == "true"
@@ -94,7 +94,7 @@ func ListFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	fmt.Fprintf(w, "%s", data)
 }
 
-func SendFile(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func SendFileHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// open file
 	path := ps.ByName("path")
 	file, err := os.Open(path)

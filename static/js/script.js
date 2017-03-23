@@ -176,14 +176,17 @@ var Ui = {
     },
 
     showVideo: function(url) {
-       // Ui.videoPlayer.stop();
         Ui.videoPlayer.source({
           type:       'video',
           sources: [{src: url}]});
+
         $.fancybox.open({
             src  : '#video-player-modal',
             type : 'inline',
             focus : false,
+            afterClose: function() {
+                Ui.videoPlayer.stop();
+            },
         });
     },
 };

@@ -16,10 +16,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 func main() {
@@ -33,11 +34,11 @@ func main() {
 	router.MethodNotAllowed = http.HandlerFunc(MethodNotAllowedErrorPage)
 
 	// add routes
-	router.GET("/", Index)
-	router.POST("/login", Login)
-	router.GET("/logout", Logout)
-	router.GET("/api/list/*folder", Security(Cors(ListFiles)))
-	router.GET("/api/get/*path", Security(Cors(SendFile)))
+	router.GET("/", IndexHandler)
+	router.POST("/login", LoginHandler)
+	router.GET("/logout", LogoutHandler)
+	router.GET("/api/list/*folder", UseSecurity(UseCors(ListFilesHandler)))
+	router.GET("/api/get/*path", UseSecurity(UseCors(SendFileHandler)))
 
 	// print info
 	url := "http://" + GetLocalIP() + ":" + strconv.Itoa(FileportConfig.Port)

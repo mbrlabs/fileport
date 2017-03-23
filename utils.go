@@ -23,18 +23,27 @@ import (
 	"strings"
 )
 
+// FileType used as enum
 type FileType int
 
 const (
+	// FileTypeUnkown unkown file type
 	FileTypeUnkown FileType = 0
-	FileTypeImage  FileType = 1
-	FileTypeVideo  FileType = 2
-	FileTypeAudio  FileType = 3
-	FileTypeText   FileType = 4
-	FileTypePDF    FileType = 5
+	// FileTypeImage any kind of image
+	FileTypeImage FileType = 1
+	// FileTypeVideo any kind of video
+	FileTypeVideo FileType = 2
+	// FileTypeAudio any kind of audio file
+	FileTypeAudio FileType = 3
+	// FileTypeText any text file
+	FileTypeText FileType = 4
+	// FileTypePDF pdf file
+	FileTypePDF FileType = 5
+	// FileTypeFolder not a file but a folder
 	FileTypeFolder FileType = 6
 )
 
+// GetFileType determines file type of file
 func GetFileType(file os.FileInfo) FileType {
 	filetype := FileTypeUnkown
 	if file.IsDir() {
@@ -74,6 +83,7 @@ func GetLocalIP() string {
 	return ""
 }
 
+// GetFiles returns the list of files in a folder
 func GetFiles(path string, showHidden bool) []os.FileInfo {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
