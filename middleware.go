@@ -16,8 +16,8 @@ package main
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"net/http"
 	"log"
+	"net/http"
 )
 
 func Security(h httprouter.Handle) httprouter.Handle {

@@ -17,16 +17,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/julienschmidt/httprouter"
-	"html/template"
 	"log"
-	"os/user"
 	"net/http"
 	"os"
+	"os/user"
 	"time"
-)
 
-var INDEX_TEMPLATE template.Template
+	"github.com/julienschmidt/httprouter"
+)
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if IsAuthenticated(r) {
@@ -34,11 +32,11 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		currentUser, _ := user.Current()
 		home := currentUser.HomeDir
 		ip := GetLocalIP()
-		tmpl.Execute(w, map[string]string {"home": home, "ip": ip})
+		tmpl.Execute(w, map[string]string{"home": home, "ip": ip})
 	} else {
 		tmpl := GetLoginTemplate()
 		ip := GetLocalIP()
-		tmpl.Execute(w, map[string]string {"ip": ip})
+		tmpl.Execute(w, map[string]string{"ip": ip})
 	}
 }
 
@@ -65,7 +63,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func Logout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	sid, err := r.Cookie("session")
-	if err == nil && sid != nil  {
+	if err == nil && sid != nil {
 		SetLogout(sid.Value)
 	}
 	http.Redirect(w, r, "/", 302)
@@ -118,9 +116,9 @@ func GenericError(w http.ResponseWriter, r *http.Request, args map[string]string
 }
 
 func NotFoundErrorPage(w http.ResponseWriter, r *http.Request) {
-	GenericError(w, r, map[string]string {"title": "404", "msg": "Not found"})
+	GenericError(w, r, map[string]string{"title": "404", "msg": "Not found"})
 }
 
 func MethodNotAllowedErrorPage(w http.ResponseWriter, r *http.Request) {
-	GenericError(w, r, map[string]string {"title": "405", "msg": "Method not allowed"})
+	GenericError(w, r, map[string]string{"title": "405", "msg": "Method not allowed"})
 }

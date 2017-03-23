@@ -15,11 +15,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
 	"strconv"
-	"fmt"
 )
 
 func main() {
@@ -49,5 +49,5 @@ func main() {
 	fmt.Println()
 
 	// start server
-	log.Fatal(http.ListenAndServe(":" + strconv.Itoa(FileportConfig.Port), router))
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(FileportConfig.Port), router))
 }

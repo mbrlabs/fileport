@@ -16,9 +16,9 @@ package main
 
 import "html/template"
 
-var indexTemplate *template.Template = nil
-var loginTemplate *template.Template = nil
-var errorTemplate *template.Template = nil
+var indexTemplate *template.Template
+var loginTemplate *template.Template
+var errorTemplate *template.Template
 
 func GetIndexTemplate() *template.Template {
 	if FileportConfig.RecompileTemplates || indexTemplate == nil {

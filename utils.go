@@ -26,31 +26,31 @@ import (
 type FileType int
 
 const (
-	FILE_TYPE_UNKOWN FileType = 0
-	FILE_TYPE_IMAGE  FileType = 1
-	FILE_TYPE_VIDEO  FileType = 2
-	FILE_TYPE_AUDIO  FileType = 3
-	FILE_TYPE_TEXT   FileType = 4
-	FILE_TYPE_PDF    FileType = 5
-	FILE_TYPE_FOLDER FileType = 6
+	FileTypeUnkown FileType = 0
+	FileTypeImage  FileType = 1
+	FileTypeVideo  FileType = 2
+	FileTypeAudio  FileType = 3
+	FileTypeText   FileType = 4
+	FileTypePDF    FileType = 5
+	FileTypeFolder FileType = 6
 )
 
 func GetFileType(file os.FileInfo) FileType {
-	filetype := FILE_TYPE_UNKOWN
+	filetype := FileTypeUnkown
 	if file.IsDir() {
-		filetype = FILE_TYPE_FOLDER
+		filetype = FileTypeFolder
 	} else {
 		e := strings.ToLower(filepath.Ext(file.Name()))
 		if e == ".png" || e == ".jpg" || e == ".jpeg" || e == ".gif" {
-			filetype = FILE_TYPE_IMAGE
+			filetype = FileTypeImage
 		} else if e == ".mp4" || e == ".avi" || e == ".webm" || e == ".mkv" || e == ".flv" || e == ".mov" || e == ".wmv" {
-			filetype = FILE_TYPE_VIDEO
+			filetype = FileTypeVideo
 		} else if e == ".mp3" || e == ".wav" || e == ".flac" {
-			filetype = FILE_TYPE_AUDIO
+			filetype = FileTypeAudio
 		} else if e == ".txt" || e == ".go" || e == ".java" || e == ".rs" || e == ".js" || e == ".html" || e == ".css" || e == ".cpp" {
-			filetype = FILE_TYPE_TEXT
+			filetype = FileTypeText
 		} else if e == ".pdf" {
-			filetype = FILE_TYPE_PDF
+			filetype = FileTypePDF
 		}
 	}
 

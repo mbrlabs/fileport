@@ -16,7 +16,7 @@ package main
 
 import "net/http"
 
-var sessions map[string]bool = make(map[string]bool)
+var sessions = make(map[string]bool)
 
 func IsAuthenticated(r *http.Request) bool {
 	if FileportConfig.NoAuth {
