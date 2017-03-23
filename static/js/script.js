@@ -150,7 +150,7 @@ var Ui = {
             } else if(FileUtils.isImage(file)) {
                 name += "<a data-fancybox='gallery' href='"+link+"' >" + file.name + "</a>";
             } else if(FileUtils.isVideo(file)) {
-                name += "<a href='#' class='video-link' data-path='"+currentPath+"'>" + file.name + "</a>";
+                name += "<a href='#' class='video-link' video-url='"+link+"'>" + file.name + "</a>";
             } else {
                 name += "<a target='_blank' href='" + link + "'>" + file.name + "</a>";
             }
@@ -184,9 +184,6 @@ var Ui = {
             src  : '#video-player-modal',
             type : 'inline',
             focus : false,
-            opts : {
-                closeBtn: false,
-            }
         });
     },
 };
@@ -249,11 +246,7 @@ $(document).on("click", ".folder-link", function(e) {
 
 $(document).on("click", ".video-link", function(e) {
     e.preventDefault();
-    var path = $(this).attr("data-path");
-    var escapedPath = path.replace("\"", "&#34;");
-    escapedPath = escapedPath.replace("'", "&#39;");
-    var url = encodeURI(API_ENDPOINT + "get/" + escapedPath); 
-    Ui.showVideo(url);
+    Ui.showVideo($(this).attr("video-url"));
 });
 
 // Initial Setup

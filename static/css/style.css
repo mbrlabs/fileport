@@ -1,7 +1,9 @@
 html, body {
   height: 100%;
   padding: 0px !important;
-  margin: 0px !important; }
+  margin: 0px !important;
+  color: #666666;
+  font-family: OpenSans; }
 
 a {
   color: #42A5F5; }
@@ -30,20 +32,14 @@ table {
   font-style: italic; }
 
 .fancybox-close-small {
-  margin-left: 20px !important;
-  display: none !important; }
-
-.fancybox-close-small:focus {
-  background-color: transparent !important; }
-
-.fancybox-close-small:hover {
-  background-color: transparent !important; }
-
-.fancybox-close-small:active {
-  background-color: transparent !important; }
+  top: 5px;
+  right: 10px; }
 
 #video-player {
   padding: 0px !important; }
+
+#video-player-modal {
+  background-color: transparent; }
 
 header {
   background-color: #2196F3;
@@ -56,19 +52,18 @@ header {
   header button {
     margin-top: 5px;
     background-color: #51adf6;
-    border-color: #51adf6;
-    height: 2.8rem;
-    line-height: 2.8rem;
-    padding: 0 1.5rem;
-    font-size: 2rem; }
+    height: 30px;
+    width: 40px;
+    line-height: 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px; }
     header button i {
       color: white; }
   header button:focus {
-    background-color: #51adf6 !important;
-    border-color: #51adf6 !important; }
+    background-color: #51adf6 !important; }
   header button:hover {
-    background-color: #39a1f4 !important;
-    border-color: #6ab8f7 !important; }
+    background-color: #39a1f4 !important; }
   header a {
     color: #cccccc; }
   header a:hover {
@@ -125,14 +120,17 @@ header {
     #main #search-bar i {
       float: left;
       margin-top: 7px;
+      margin-right: 10px;
       font-size: 90%; }
     #main #search-bar input {
       border: none;
+      outline: none;
       color: white;
+      background-color: transparent;
       margin: 0px;
       font-size: 12px;
-      height: 2.5rem;
-      width: 90%; }
+      height: 1.7rem;
+      width: 80%; }
 
 .icon-dir {
   color: #aaaaaa; }

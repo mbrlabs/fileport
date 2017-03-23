@@ -19,6 +19,7 @@
 $sidebar-bkg: #ffffff;
 $sidebar-handle-bkg: #cccccc;
 $main-bkg: #ffffff;
+$font-color: #666666;
 
 $header-bkg: #2196F3;
 
@@ -34,6 +35,8 @@ html, body {
     height: 100%;
     padding: 0px !important;
     margin: 0px !important;
+    color: $font-color;
+    font-family: OpenSans;
 }
 
 a {
@@ -70,23 +73,16 @@ table {
 }
 
 .fancybox-close-small {
-    margin-left: 20px !important; 
-    display: none !important;
-}
-
-.fancybox-close-small:focus {
-    background-color: transparent !important;
-}
-.fancybox-close-small:hover {
-    background-color: transparent !important;
-}
-
-.fancybox-close-small:active {
-    background-color: transparent !important;
+    top: 5px;
+    right: 10px;
 }
 
 #video-player {
     padding: 0px !important;
+}
+
+#video-player-modal {
+    background-color: transparent;
 }
 
 // Header
@@ -106,21 +102,20 @@ header {
         
         margin-top: 5px;
         background-color: lighten($header-bkg, 10);
-        border-color: lighten($header-bkg, 10);
-        height: 2.8rem;
-        line-height: 2.8rem;
-        padding: 0 1.5rem;
-        font-size: 2rem;
+        height: 30px;
+        width: 40px;
+        line-height: 2rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
     }
 
     button:focus {
         background-color: lighten($header-bkg, 10) !important;
-        border-color: lighten($header-bkg, 10) !important;
     }
 
     button:hover {
         background-color: lighten($header-bkg, 5) !important;
-        border-color: lighten($header-bkg, 15) !important;
     }
 
     a {
@@ -203,21 +198,22 @@ header {
         i {
             float: left;
             margin-top: 7px;
+            margin-right: 10px;
             font-size: 90%;
         }
 
         input {
             border: none;
+            outline: none;
             color: white;
+            background-color: transparent;
             margin: 0px;
             font-size: 12px;
-            //background-color: red;
-            height: 2.5rem;
-            width: 90%;
+            height: 1.7rem;
+            width: 80%;
         }
     }
 }
-
 
 .icon-dir {
     color: #aaaaaa;
