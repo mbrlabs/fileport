@@ -83,24 +83,23 @@ func GetLocalIP() string {
 	return ""
 }
 
-// GetFiles returns the list of files in a folder
-func GetFiles(path string, showHidden bool) []os.FileInfo {
+// GetFiles returns a list of files in a folder. For every file, the filter function
+// determines if the file should be included or not.
+func GetFiles(path string, filter func(os.FileInfo) bool) []os.FileInfo {
 	files, err := ioutil.ReadDir(path)
+	result := make([]os.FileInfo, 0)
+
 	if err != nil {
-		return make([]os.FileInfo, 0)
+		return result
 	}
 
-	if showHidden {
-		return files
-	}
-
-	var filtered []os.FileInfo
 	for _, file := range files {
-		if !strings.HasPrefix(file.Name(), ".") {
-			filtered = append(filtered, file)
+		if filter(file) {
+			result = append(result, file)
 		}
 	}
-	return filtered
+
+	return result
 }
 
 const (

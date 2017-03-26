@@ -21,6 +21,7 @@ import (
 	"net/http"
 	"os"
 	"os/user"
+	"strings"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
@@ -75,7 +76,10 @@ func ListFilesHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	//showHidden := r.URL.Query().Get("hidden") == "true"
 
 	// get files
-	files := GetFiles(folder, false)
+	files := GetFiles(folder, func(file os.FileInfo) bool {
+		return !strings.HasPrefix(file.Name(), ".")
+	})
+
 	if len(files) == 0 {
 		http.Error(w, "", 500)
 		return
