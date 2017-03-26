@@ -188,13 +188,16 @@ header {
                 }
             }
 
-            
-            tbody {
-                td {
-                    padding: 5px;
-                }
+            td {
+                padding: 5px;
             }
 
+            tbody {
+                tr:hover {
+                    background: #ECEFF1;
+                    cursor: pointer; 
+                }
+            }
 
         }
     }

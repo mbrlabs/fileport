@@ -140,22 +140,23 @@ var Ui = {
 
             var size = filesize(file.size);
             var type = FileUtils.getIcon(file) + "&nbsp;&nbsp;&nbsp;&nbsp;";
+            
             var escapedName = file.name.replace("\"", "&#34;");
             escapedName = escapedName.replace("'", "&#39;");
-
             var link = encodeURI(API_ENDPOINT + "get/" + History.current + "/" + escapedName); 
-            var name = "";
+            
             if(FileUtils.isFolder(file)) {
-                name += "<a href='#' class='folder-link' data-path='"+currentPath+"'>" + file.name + "</a>";
+                html += "<tr class='folder-link' data-path='"+currentPath+"' >";
             } else if(FileUtils.isImage(file)) {
-                name += "<a data-fancybox='gallery' href='"+link+"' >" + file.name + "</a>";
+                html += "<tr data-fancybox='gallery' href='"+link+"' >";
             } else if(FileUtils.isVideo(file)) {
-                name += "<a href='#' class='video-link' video-url='"+link+"'>" + file.name + "</a>";
+                html += "<tr class='video-link' video-url='"+link+"' >";
             } else {
-                name += "<a target='_blank' href='" + link + "'>" + file.name + "</a>";
+               // name += "<a target='_blank' href='" + link + "'>" + file.name + "</a>";
+                html += "<tr class='other-link' other-url='"+link+"' >";
             }
-            html += "<tr>";
-            html += "<td>" + type + name + "</td>";
+
+            html += "<td>" + type + file.name + "</td>";
             html += "<td>" + size + "</td>";
             html += "</tr>";
         });
@@ -250,6 +251,12 @@ $(document).on("click", ".folder-link", function(e) {
 $(document).on("click", ".video-link", function(e) {
     e.preventDefault();
     Ui.showVideo($(this).attr("video-url"));
+});
+
+$(document).on("click", ".other-link", function(e) {
+    e.preventDefault();
+   // Ui.showVideo($(this).attr("other-url"));
+   window.location = $(this).attr("other-url");
 });
 
 // Initial Setup

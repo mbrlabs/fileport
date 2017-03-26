@@ -18,7 +18,7 @@ go run *.go
 
 ## Features
 - Password protection
-- Basic read-only file access
+- Read-only file access
 - Image gallery
 - Video player
 - Fuzzy file search
