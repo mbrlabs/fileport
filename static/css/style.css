@@ -2,11 +2,12 @@ html, body {
   height: 100%;
   padding: 0px !important;
   margin: 0px !important;
-  color: #666666;
+  color: #607D8B;
   font-family: OpenSans; }
 
 a {
-  color: #42A5F5; }
+  color: #607D8B;
+  text-decoration: none; }
 
 table {
   font-size: 90%; }
@@ -42,38 +43,29 @@ table {
   background-color: transparent; }
 
 header {
-  background-color: #2196F3;
+  background-color: #009688;
   position: fixed;
   top: 0px;
   width: 100%;
   height: 40px;
   color: #ffffff;
-  padding-left: 15px; }
-  header button {
-    margin-top: 5px;
-    background-color: #51adf6;
-    height: 30px;
-    width: 40px;
-    line-height: 2rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px; }
-    header button i {
-      color: white; }
-  header button:focus {
-    background-color: #51adf6 !important; }
-  header button:hover {
-    background-color: #39a1f4 !important; }
+  padding-left: 15px;
+  padding-right: 15px; }
+  header a i {
+    color: white; }
   header a {
     color: #cccccc; }
   header a:hover {
     color: white; }
-  header #current-path {
-    top: -3px;
-    left: 10px;
-    position: relative; }
   header .path-segment {
-    color: #eeeeee; }
+    color: #eeeeee;
+    padding: 2px;
+    text-decoration: none; }
+  header #current-path {
+    margin-left: 20px; }
+  header #header-container {
+    top: 9px;
+    position: relative; }
 
 #main {
   background-color: #ffffff;
@@ -108,12 +100,23 @@ header {
   float: right;
   margin-top: 40px; }
   #main #files {
-    margin-top: 30px;
+    margin-top: 40px;
     padding: 10px; }
+    #main #files table {
+      width: 100%;
+      border: none;
+      border-spacing: 0px; }
+      #main #files table thead {
+        text-align: left; }
+        #main #files table thead th {
+          padding-left: 5px;
+          padding-bottom: 10px; }
+      #main #files table tbody td {
+        padding: 5px; }
   #main #search-bar {
     position: fixed;
     width: 100%;
-    background-color: #0d8aee;
+    background-color: #007d71;
     color: white;
     padding: 5px;
     padding-left: 10px; }

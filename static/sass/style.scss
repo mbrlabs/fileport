@@ -16,17 +16,17 @@
 // ------------------------------------------------------------------------
 
 // colors
+$main-bkg: #ffffff;
+$font-color: #607D8B;
+
 $sidebar-bkg: #ffffff;
 $sidebar-handle-bkg: #cccccc;
-$main-bkg: #ffffff;
-$font-color: #666666;
 
-$header-bkg: #2196F3;
+$header-color: #009688;
 
 // dimensions
 $initial-sidebar-width: 350px;
 $header-height: 40px;
-
 
 // Basics
 // ------------------------------------------------------------------------
@@ -40,7 +40,8 @@ html, body {
 }
 
 a {
-    color: #42A5F5;
+    color: $font-color;
+    text-decoration: none;
 }
 
 table {
@@ -89,52 +90,41 @@ table {
 // ------------------------------------------------------------------------
 
 header {
-    background-color: $header-bkg;
+    background-color: $header-color;
     position: fixed;
     top: 0px;
-    width: 100%;
+    width: 100%;   
     height: $header-height;
     color: #ffffff;
     padding-left: 15px;
+    padding-right: 15px;
 
-    button {
+    a {
         i { color: white; }
-        
-        margin-top: 5px;
-        background-color: lighten($header-bkg, 10);
-        height: 30px;
-        width: 40px;
-        line-height: 2rem;
-        font-size: 1rem;
-        border: none;
-        border-radius: 5px;
-    }
-
-    button:focus {
-        background-color: lighten($header-bkg, 10) !important;
-    }
-
-    button:hover {
-        background-color: lighten($header-bkg, 5) !important;
     }
 
     a {
         color: #cccccc;
     }
+    
     a:hover {
         color: white;
     }
 
-    #current-path {
-        top: -3px;
-        left: 10px;
-        position: relative;
-    }
-
     .path-segment {
         color: #eeeeee;
+        padding: 2px;
+        text-decoration: none;
     }
 
+    #current-path {
+        margin-left: 20px;
+    }
+
+    #header-container {
+        top: 9px;
+        position: relative;
+    }
 }
 
 // Sidebar
@@ -182,14 +172,37 @@ header {
     margin-top: $header-height;
 
     #files {
-        margin-top: 30px;
+        margin-top: 40px;
         padding: 10px;
+
+        table {
+            width: 100%;
+            border: none;
+            border-spacing: 0px;
+
+            thead {
+                text-align: left;
+                th {
+                    padding-left: 5px;
+                    padding-bottom: 10px;
+                }
+            }
+
+            
+            tbody {
+                td {
+                    padding: 5px;
+                }
+            }
+
+
+        }
     }
 
     #search-bar {
         position: fixed;
         width: 100%;
-        background-color: darken($header-bkg, 5);
+        background-color: darken($header-color, 5);
         color: white;
         padding: 5px;
         padding-left: 10px;

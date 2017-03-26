@@ -29,11 +29,9 @@ type securityManager struct {
 
 // SecurityManager returns the securityManager singleton
 func SecurityManager() *securityManager {
-	if smInstance == nil {
-		once.Do(func() {
-			smInstance = &securityManager{sessions: make(map[string]bool)}
-		})
-	}
+	once.Do(func() {
+		smInstance = &securityManager{sessions: make(map[string]bool)}
+	})
 
 	return smInstance
 }

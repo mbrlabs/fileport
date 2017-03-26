@@ -27,7 +27,7 @@ var DebugConfig = Config{
 	true,      // RecompileTemplates
 	"/static", // StaticFilesPrefix
 	false,
-	"Test123",
+	"fileport",
 }
 
 var ReleaseConfig = Config{
@@ -35,7 +35,7 @@ var ReleaseConfig = Config{
 	false,     // RecompileTemplates
 	"/static", // StaticFilesPrefix
 	false,
-	"Test123",
+	"fileport",
 }
 
 var FileportConfig = DebugConfig

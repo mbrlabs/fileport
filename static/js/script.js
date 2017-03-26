@@ -134,7 +134,7 @@ var Ui = {
     },
 
     setFiles: function(files) {
-        var html = "<table><thead><tr><th>Name</th><th>Size</th></tr></thead><tbody>";
+        var html = "<table><thead><tr><th>NAME</th><th>SIZE</th></tr></thead><tbody>";
         $.each(files, function(index, file) {
             var currentPath = History.current + "/" + file.name; 
 
